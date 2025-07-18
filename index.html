@@ -4,121 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Chatbot</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .chat-container {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            width: 350px;
-            max-width: 95vw;
-            display: flex;
-            flex-direction: column;
-            height: 500px;
-        }
-        .chat-header {
-            background: #4a90e2;
-            color: #fff;
-            padding: 16px;
-            border-radius: 8px 8px 0 0;
-            font-size: 1.2em;
-            text-align: center;
-        }
-        .chat-messages {
-            flex: 1;
-            padding: 16px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .message {
-            max-width: 80%;
-            padding: 10px 14px;
-            border-radius: 18px;
-            font-size: 1em;
-            line-height: 1.4;
-        }
-        .user {
-            align-self: flex-end;
-            background: #e1f5fe;
-            color: #333;
-        }
-        .bot {
-            align-self: flex-start;
-            background: #e3e3e3;
-            color: #222;
-        }
-        .chat-input {
-            display: flex;
-            border-top: 1px solid #eee;
-        }
-        .chat-input input {
-            flex: 1;
-            border: none;
-            padding: 12px;
-            font-size: 1em;
-            border-radius: 0 0 0 8px;
-            outline: none;
-        }
-        .chat-input button {
-            background: #4a90e2;
-            color: #fff;
-            border: none;
-            padding: 0 24px;
-            font-size: 1em;
-            border-radius: 0 0 8px 0;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .chat-input button:hover {
-            background: #357abd;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="chat-container">
-        <div class="chat-header">Chatbot</div>
-        <div class="chat-messages" id="chat-messages">
-            <!-- Messages will appear here -->
-        </div>
-        <form class="chat-input" id="chat-form" autocomplete="off">
-            <input type="text" id="user-input" placeholder="Type your message..." required />
+        <div id="chat-window" class="chat-window"></div>
+        <form id="chat-form" class="chat-form">
+            <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off" required />
             <button type="submit">Send</button>
         </form>
     </div>
-    <script>
-        const chatMessages = document.getElementById('chat-messages');
-        const chatForm = document.getElementById('chat-form');
-        const userInput = document.getElementById('user-input');
-
-        function appendMessage(text, sender) {
-            const msgDiv = document.createElement('div');
-            msgDiv.className = 'message ' + sender;
-            msgDiv.textContent = text;
-            chatMessages.appendChild(msgDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        chatForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const userText = userInput.value.trim();
-            if (!userText) return;
-            appendMessage(userText, 'user');
-            userInput.value = '';
-            setTimeout(() => {
-                appendMessage('Hello! I am a simple chatbot. How can I help you?', 'bot');
-            }, 500);
-        });
-    </script>
+    <script src="main.js"></script>
 </body>
 </html> 
