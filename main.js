@@ -21,7 +21,7 @@ chatForm.addEventListener('submit', async (e) => {
     userInput.value = '';
     appendMessage('bot', '...'); // Loading indicator
     try {
-        const res = await fetch('/chat', {
+        const res = await fetch('http://localhost:3000/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message })

@@ -1,14 +1,14 @@
 const express = require('express');
-const path = require('path');
 const dotenv = require('dotenv');
 const axios = require('axios');
+const cors = require('cors');
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(__dirname));
+app.use(cors()); // Allow all origins for development
 app.use(express.json());
 
 // In-memory conversation history (for demo, not per-user)
@@ -19,14 +19,12 @@ app.post('/chat', async (req, res) => {
     try {
         // Add user message to history
         conversationHistory.push({ role: 'user', content: userMessage });
-        // Print the conversation history to the console
-        // console.log('Conversation history:', JSON.stringify(conversationHistory, null, 2));
+        // const messages = ...
         const messages = [
             { role: 'system', content: 'You are a helpful and funny assistant.' },
             ...conversationHistory
         ];
-        // Print the full prompt to the console
-        // console.log('Prompt sent to OpenAI:', JSON.stringify(messages, null, 2));
+        // const openaiRes = ...
         const openaiRes = await axios.post(
             'https://api.openai.com/v1/chat/completions',
             {
@@ -51,5 +49,5 @@ app.post('/chat', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Backend server running on http://localhost:${PORT}`);
 }); 
