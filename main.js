@@ -1,3 +1,20 @@
+let conversationId = null;
+
+async function startConversation() {
+    try {
+        const res = await fetch('http://localhost:3000/start', {
+            method: 'POST'
+        });
+        const data = await res.json();
+        conversationId = data.conversation_id;
+    } catch (err) {
+        alert('Failed to start a new conversation.');
+    }
+}
+
+// Start a new conversation on page load
+startConversation();
+
 const chatWindow = document.getElementById('chat-window');
 const chatForm = document.getElementById('chat-form');
 const userInput = document.getElementById('user-input');
@@ -16,7 +33,7 @@ function appendMessage(sender, text) {
 chatForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const message = userInput.value.trim();
-    if (!message) return;
+    if (!message || !conversationId) return;
     appendMessage('user', message);
     userInput.value = '';
     appendMessage('bot', '...'); // Loading indicator
@@ -24,7 +41,7 @@ chatForm.addEventListener('submit', async (e) => {
         const res = await fetch('http://localhost:3000/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message })
+            body: JSON.stringify({ message, conversation_id: conversationId })
         });
         const data = await res.json();
         // Remove loading indicator
