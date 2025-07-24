@@ -15,7 +15,7 @@ app.use(express.json());
 
 // Supabase setup
 const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUBABASE_SERVICE_ROLE_KEY;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // In-memory cache for conversation history (per conversation_id)
